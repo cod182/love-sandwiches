@@ -20,7 +20,7 @@ def get_sales_data():
     """
     Get sales figures input form user
     """
-
+    # While loop will repeate until true is returned
     while True:
         print("Please enter sales data from last market")
         print("Data should be 6 numbers, seperated by commas")
@@ -29,7 +29,7 @@ def get_sales_data():
         data_str = input("Enter Data Here: ")
 
         sales_data = data_str.split(",")
-        print(sales_data)
+    
         if  validate_data(sales_data):
             print("Data is Valid")
             break
@@ -57,4 +57,16 @@ def validate_data(values):
     
     return True
 
+def update_sales_worksheet(data):
+    """
+    Update sales worksheet, add new row with list data provided
+    """
+    print("Updating sales worksheet...\n")
+    sales_worksheet = SHEET.worksheet('sales')
+    sales_worksheet.append_row(data)
+    print("sales worksheet updated successfully.\n")
+
+
 data = get_sales_data()
+sales_data = [int(num) for num in data]
+update_sales_worksheet(sales_data)
