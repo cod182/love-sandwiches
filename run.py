@@ -87,6 +87,15 @@ def calculate_surplus_data(sales_row):
 
     return surplus_data
 
+def update_surplus_worksheet(data):
+    """
+    Updates the surplus worksheet, add new row with surplus calculations
+    """
+    print("Updating surplus worksheet...\n")
+    surplus_worksheet = SHEET.worksheet('surplus')
+    surplus_worksheet.append_row(data)
+    print("surplus worksheet updated successfully.\n")
+
 
 # Common practice to wrap all main function calls of a program in a funciton called main
 def main():
@@ -97,6 +106,7 @@ def main():
     sales_data = [int(num) for num in data]
     update_sales_worksheet(sales_data)
     new_surplus = calculate_surplus_data(sales_data)
+    update_surplus_worksheet(new_surplus)
 
 # Functions must be called after they have been declared
 print("Welcome to Love Sandwiches Data Automation")
