@@ -1,4 +1,4 @@
-import gspread 
+import gspread
 # imports the entire gspread library
 from google.oauth2.service_account import Credentials
 # imports the Credentials class from google
@@ -11,13 +11,20 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
     ]
 # Constant variables are in all caps
-CREDS = Credentials.from_service_account_file('creds.json') 
+CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS) 
+GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('love_sandwiches')
 
-sales = SHEET.worksheet('sales') 
-# calls teh sales worksheet
+def get_sales_data():
+    """
+    Get sales figures input form user
+    """
+    print("Please enter sales data from last market")
+    print("Data should be 6 numbers, seperated by commas")
+    print("Example: 12,14,34,23,12,12\n")
 
-data = sales.get_all_values()
-print(data)
+    data_str = input("Enter Data Here: ")
+
+
+get_sales_data()
