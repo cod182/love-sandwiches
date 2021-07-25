@@ -4,6 +4,7 @@ from google.oauth2.service_account import Credentials
 # imports the Credentials class from google
 # Every google account has a IAM cofig. Identity and Access Mannagment
 # Configures what can be accessed
+from pprint import pprint
 # Score lists the API's the program should have access to in order to run
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -66,7 +67,30 @@ def update_sales_worksheet(data):
     sales_worksheet.append_row(data)
     print("sales worksheet updated successfully.\n")
 
+def calculate_surplus_data(sales_row):
+    """
+    Comapre sales with stock and calculate surplus
 
-data = get_sales_data()
-sales_data = [int(num) for num in data]
-update_sales_worksheet(sales_data)
+    Surplus is defined as sales figures subtracted from stock
+    - Positive surplus is waste
+    - Negative surplus is extras made
+    """
+    print("Calculating surplus data...\n")
+    stock = SHEET.worksheet('stock').get_all_values()
+    stock_row = stock[-1] 
+    # Slices the final item of the list
+    pprint(stock_row)
+
+# Common practice to wrap all main function calls of a program in a funciton called main
+def main():
+    """
+    Run all main function
+    """
+    data = get_sales_data()
+    sales_data = [int(num) for num in data]
+    update_sales_worksheet(sales_data)
+    calculate_surplus_data(sales_data)
+
+# Functions must be called after they have been declared
+print("Welcome to Love Sandwiches Data Automation")
+main()
